@@ -1,0 +1,1 @@
+DADOS FICTÍCIOS gerados por `python3 -m bd exemplo`. Nenhum cliente, fornecedor ou valor é real.

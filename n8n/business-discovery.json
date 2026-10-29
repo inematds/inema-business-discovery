@@ -1,0 +1,39 @@
+{
+  "name": "INEMA Business Discovery — ciclo semanal",
+  "nodes": [
+    {
+      "parameters": {"rule": {"interval": [{"field": "weeks", "triggerAtDay": [1], "triggerAtHour": 7}]}},
+      "name": "Toda segunda 07h",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {"command": "cd /opt/inema-business-discovery && python3 -m bd analisar --dados /dados/export-semanal --saida /dados/saida"},
+      "name": "Rodar ciclo LOOP-R",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [240, 0]
+    },
+    {
+      "parameters": {"filePath": "/dados/saida/descobertas.json"},
+      "name": "Ler descobertas",
+      "type": "n8n-nodes-base.readBinaryFile",
+      "typeVersion": 1,
+      "position": [480, 0]
+    },
+    {
+      "parameters": {"jsCode": "const d = JSON.parse(Buffer.from($input.first().binary.data.data, 'base64').toString());\nconst pend = d.descobertas.filter(x => x.estado === 'aguardando_aprovacao');\nreturn [{json: {texto: `Business Discovery: ${pend.length} descobertas aguardam aprovação.\\n` + pend.slice(0,5).map(x => `• ${x.id}: ${x.titulo}`).join('\\n')}}];"},
+      "name": "Resumo para o gestor",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [720, 0]
+    }
+  ],
+  "connections": {
+    "Toda segunda 07h": {"main": [[{"node": "Rodar ciclo LOOP-R", "type": "main", "index": 0}]]},
+    "Rodar ciclo LOOP-R": {"main": [[{"node": "Ler descobertas", "type": "main", "index": 0}]]},
+    "Ler descobertas": {"main": [[{"node": "Resumo para o gestor", "type": "main", "index": 0}]]}
+  },
+  "_leia": "Exemplo. Ligue a saída do 'Resumo para o gestor' ao canal que a empresa usa (e-mail, Telegram, Slack). A aprovação continua humana."
+}

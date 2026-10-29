@@ -1,0 +1,9 @@
+produto_id,nome,categoria,preco,custo
+P01,Pacote de serviços,Serviço,3500.00,2450.00
+P02,Licença anual,Software,1800.00,1080.00
+P03,Instalação,Serviço,1200.00,780.00
+P04,Manutenção anual,Serviço,2200.00,1320.00
+P05,Treinamento,Serviço,900.00,540.00
+P06,Sensor industrial,Hardware,650.00,600.00
+P07,Cabo e conectores,Hardware,120.00,110.00
+P08,Consultoria,Serviço,2600.00,1300.00
