@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>INEMA Business Discovery — agents that uncover and validate business opportunities</title>
+<meta name="description" content="An open platform with 6 AI agents that investigate company data, propose hypotheses, test them with a control group, audit the numbers, and remember what worked. The LOOP-R cycle.">
+<link rel="alternate" hreflang="pt-BR" href="https://inematds.github.io/inema-business-discovery/guia/">
+<link rel="alternate" hreflang="en" href="https://inematds.github.io/inema-business-discovery/guia/en/">
+<link rel="alternate" hreflang="es" href="https://inematds.github.io/inema-business-discovery/guia/es/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c0c10; --bg2:#14141b; --card:#16161e; --line:#272730;
+    --txt:#e9e9ee; --mut:#9a9aa6; --amb:#FACC15; --amb2:#f0c070; --sky:#38bdf8; --pro:#cbd5e1;
+    color-scheme:dark;
+  }
+  body.light{
+    --bg:#f6f7f9; --bg2:#eceef2; --card:#ffffff; --line:#e1e3ea;
+    --txt:#1a1a22; --mut:#5b5b68; --amb:#a16207; --amb2:#a16207; --sky:#0369a1; --pro:#b45309;
+    color-scheme:light;
+  }
+  body.light .hero .glow{opacity:.5}
+  body.light pre{background:#0e0e14;color:#d6d6e0}
+  body.light pre .c{color:#8a8a98}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.65 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:Sora,sans-serif;line-height:1.15;margin:0}
+  a{color:var(--amb);text-decoration:none}
+  code,pre{font-family:"JetBrains Mono",monospace}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+  .mut{color:var(--mut)} .amb{color:var(--amb)}
+  .chip{display:inline-block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amb);font-weight:600;font-family:Sora}
+  nav{position:sticky;top:0;z-index:30;backdrop-filter:blur(12px);background:rgba(12,12,16,.78);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;gap:22px;height:60px}
+  nav .brand{display:flex;align-items:center;gap:8px;font-family:Sora;font-weight:800;letter-spacing:-.02em;color:var(--amb)}
+  nav .brand .emoji{font-size:1.25rem}
+  nav .sep{color:var(--mut);opacity:.45}
+  nav .inema{color:var(--sky);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .inema:hover{filter:brightness(1.15)}
+  nav .pro{color:var(--pro);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .pro:hover{filter:brightness(1.15)}
+  nav .clubpro{display:inline-flex;align-items:center;gap:6px}
+  nav .links{margin-left:auto;display:flex;align-items:center;gap:20px;font-size:.92rem}
+  nav .links a.sec{color:var(--mut)} nav .links a.sec:hover{color:var(--txt)}
+  .lang{display:inline-flex;gap:2px;font-family:Sora;font-size:.78rem}
+  .lang a{color:var(--mut);padding:.2em .45em;border-radius:6px} .lang a.on{color:var(--amb);background:rgba(250,204,21,.12)}
+  .tgl{background:var(--bg2);border:1px solid var(--line);color:var(--txt);width:38px;height:38px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .tgl:hover{border-color:var(--amb)}
+  .btn{display:inline-block;background:var(--amb);color:#1a1206;font-weight:600;padding:.6em 1.05em;border-radius:10px;font-family:Sora}
+  .btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}
+  @media(max-width:760px){nav .links a.sec{display:none}}
+  @media(max-width:520px){nav .wrap{gap:8px;padding:8px 14px;height:auto;flex-wrap:wrap} nav .links{gap:8px;margin-left:0;width:100%;justify-content:space-between} nav .btn{padding:.45em .7em;font-size:.82rem} .tgl{width:34px;height:34px}}
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+  .hero .glow{position:absolute;inset:-40% -20% auto auto;width:70%;height:600px;background:radial-gradient(closest-side,rgba(250,204,21,.22),transparent 70%);pointer-events:none}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:74px 22px}
+  .hero h1{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:800;letter-spacing:-.025em}
+  .hero p.lead{font-size:1.18rem;color:var(--mut);margin:1.1em 0 1.6em;max-width:34ch}
+  .hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .hero figure{margin:0;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000}
+  .hero figure img{width:100%;height:auto;display:block}
+  .resumo{padding:38px 0 34px;border-bottom:1px solid var(--line)}
+  .resumo p{font-size:1.12rem;line-height:1.7;max-width:74ch;margin:.55em 0 0}
+  @media(max-width:780px){.hero .wrap{grid-template-columns:1fr;padding:48px 22px}}
+  section{padding:62px 0;border-bottom:1px solid var(--line)}
+  section h2{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800;letter-spacing:-.02em}
+  section .sub{color:var(--mut);margin:.6em 0 2em;max-width:62ch}
+  .grid{display:grid;gap:16px}
+  .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)} .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:820px){.g3,.g4{grid-template-columns:1fr 1fr}}
+  @media(max-width:540px){.g2,.g3,.g4{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .card h3{font-size:1.05rem;margin-bottom:.4em}
+  .card p{color:var(--mut);font-size:.92rem;margin:0}
+  .num{display:inline-flex;width:30px;height:30px;align-items:center;justify-content:center;border-radius:8px;background:rgba(250,204,21,.14);color:var(--amb);font-family:Sora;font-weight:800;font-size:.9rem;margin-bottom:.7em}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+  .flow span{background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:.45em .9em;font-size:.85rem;font-family:Sora;font-weight:600}
+  .flow .arr{color:var(--amb);border:none;background:none;padding:0 .1em}
+  pre{background:#0a0a0e;border:1px solid var(--line);border-radius:12px;padding:16px 18px;overflow:auto;font-size:.86rem;line-height:1.6;color:#d6d6e0}
+  pre .c{color:#6f6f7c} pre .k{color:var(--amb2)} pre .s{color:#9ece6a}
+  .step{display:grid;grid-template-columns:46px minmax(0,1fr);gap:16px;margin-bottom:26px}
+  .step>div,.card{min-width:0}
+  p code,li code,td code{overflow-wrap:anywhere}
+  .step .b{width:46px;height:46px;border-radius:12px;background:var(--amb);color:#1a1206;font-family:Sora;font-weight:800;font-size:1.25rem;display:flex;align-items:center;justify-content:center}
+  .step h3{font-size:1.12rem;margin-bottom:.3em}
+  .step p{color:var(--mut);margin:.2em 0 .7em}
+  .ex{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:680px){.ex{grid-template-columns:1fr}}
+  .ex figure{margin:0;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+  .ex figure img{width:100%;height:auto;display:block}
+  .ex figcaption{padding:12px 14px;font-size:.88rem;color:var(--mut);background:var(--card)}
+  .phase{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .phase:last-child{border:none}
+  .phase .tag{flex:0 0 92px;font-family:Sora;font-weight:800;color:var(--amb)}
+  .phase .d strong{display:block;margin-bottom:.2em}
+  .phase .d span{color:var(--mut);font-size:.92rem}
+  footer{padding:46px 0;text-align:center;color:var(--mut);font-size:.9rem}
+  .pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.3em .8em;font-size:.78rem;color:var(--mut);margin:0 4px}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="brand" href="#top"><span class="emoji">🔎</span> Business Discovery</a>
+  <span class="sep">|</span>
+  <span class="clubpro">
+    <a class="inema" href="https://inema.club" target="_blank" rel="noopener">INEMA.CLUB</a>
+    <span class="sep">-</span>
+    <a class="pro" href="https://inema.pro" target="_blank" rel="noopener">PRO</a>
+  </span>
+  <div class="links">
+    <a class="sec" href="#oque">What it is</a>
+    <a class="sec" href="#fluxo">How it works</a>
+    <a class="sec" href="#guia">User guide</a>
+    <a class="sec" href="#exemplos">Examples</a>
+    <a class="sec" href="#roadmap">Roadmap</a>
+    <span class="lang"><a href="../">PT</a><a class="on" href="./">EN</a><a href="../es/">ES</a></span>
+    <button class="tgl" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">🌙</button>
+    <a class="btn" href="https://github.com/inematds/inema-business-discovery" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</div></nav>
+
+<header class="hero" id="top">
+  <div class="glow"></div>
+  <div class="wrap">
+    <div>
+      <span class="chip">A discovery lab for business management</span>
+      <h1>Your company has a research team <span class="amb">that never stops</span></h1>
+      <p class="lead">Six agents look for where your business is losing money, test solutions with a control group, and only remember what the numbers confirm.</p>
+      <div class="cta">
+        <a class="btn" href="#guia">Start the guide</a>
+        <a class="btn ghost" href="https://github.com/inematds/inema-business-discovery" target="_blank" rel="noopener">View on GitHub</a>
+      </div>
+    </div>
+    <figure><img src="../assets/banner-en.jpg" alt="INEMA Business Discovery banner: continuous discovery with AI agents"></figure>
+  </div>
+</header>
+
+<section id="resumo" class="resumo"><div class="wrap">
+  <span class="chip">In short</span>
+  <p>INEMA Business Discovery is an open source program that reads your company spreadsheets (sales, customers, proposals, expenses, and operations) and points out opportunities: customers who stopped buying, expenses that have climbed too high, rework, and sales you might be missing. It is for small and medium sized business owners and managers who want evidence for their decisions, not guesswork. Each finding includes the calculations, a confidence level, and a test to confirm it. All you need to use it is Python 3 and spreadsheets exported as CSV files.</p>
+</div></section>
+
+<section id="oque"><div class="wrap">
+  <span class="chip">What it is</span>
+  <h2>It doesn’t answer questions. It uncovers what you haven’t asked yet.</h2>
+  <p class="sub">A dashboard displays numbers. This platform investigates, suggests an explanation, plans a test, and measures whether it worked—every week.</p>
+  <figure style="margin:0 0 26px;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000"><img src="../assets/banner-grade-en.jpg" alt="The platform’s five areas of discovery and its memory" loading="lazy" style="width:100%;display:block"></figure>
+  <div class="grid g3">
+    <div class="card"><h3>🔎 Five areas</h3><p>Lost revenue, avoidable expenses, customer churn risk, operational inefficiencies, and sales opportunities.</p></div>
+    <div class="card"><h3>⚖️ The person doing the work doesn’t evaluate it</h3><p>The Investigator does the calculations, the Auditor checks them again, the Critic tries to disprove the conclusion, and a person approves the action.</p></div>
+    <div class="card"><h3>🧪 Evidence with a control group</h3><p>Half the customers receive the action and half don’t. Only the additional result—the incremental effect—counts.</p></div>
+  </div>
+</div></section>
+
+<section id="fluxo"><div class="wrap">
+  <span class="chip">How it works</span>
+  <h2>The LOOP-R cycle applied to business management</h2>
+  <p class="sub">LOOP-R is INEMA’s open framework for agents that check their own work: Locate, Operate, Observe, Propose, Reinforce. Here, each letter has a responsible agent.</p>
+  <div class="flow">
+    <span>Your CSV files</span><span class="arr">→</span>
+    <span>Investigator · Locate</span><span class="arr">→</span>
+    <span>Scientist · Propose</span><span class="arr">→</span>
+    <span>Experimenter · Operate</span><span class="arr">→</span>
+    <span>Auditor + Critic</span><span class="arr">→</span>
+    <span>You approve</span><span class="arr">→</span>
+    <span>Validator · Observe</span><span class="arr">→</span>
+    <span>Memory · Reinforce</span>
+  </div>
+  <div class="grid g3" style="margin-top:26px">
+    <div class="card"><h3>Investigator</h3><p>Finds patterns and anomalies using straightforward calculations, without a language model, so everything can be checked.</p></div>
+    <div class="card"><h3>Scientist</h3><p>Writes the hypothesis and sets three agents to compete: A Recovery, B Offer, C Relationship. The evaluator scores the proposals without knowing who created each one.</p></div>
+    <div class="card"><h3>Experimenter</h3><p>Builds pessimistic, baseline, and optimistic scenarios, then randomly assigns customers to test and control groups.</p></div>
+    <div class="card"><h3>Auditor</h3><p>Recalculates every figure from the inputs and checks that the listed customers exist. Rejects anything that doesn’t add up.</p></div>
+    <div class="card"><h3>Critic</h3><p>Looks for other explanations (seasonality, reliance on a few customers, a small sample) and lowers confidence.</p></div>
+    <div class="card"><h3>Memory</h3><p>Records each decision with a name and timestamp. Strategies that pass the test carry more weight in the next cycle.</p></div>
+  </div>
+</div></section>
+
+<section id="pre"><div class="wrap">
+  <span class="chip">Prerequisites</span>
+  <h2>Python and your spreadsheets. That’s it.</h2>
+  <p class="sub">No dependencies, external database, or API key. The language model is optional and runs on your machine.</p>
+  <div class="grid g3">
+    <div class="card"><h3>Python 3.10+</h3><p>It comes with Linux and macOS. On Windows, install it from python.org.</p><pre><span class="c"># check your version</span>
+<span class="k">python3</span> --version</pre></div>
+    <div class="card"><h3>CSV spreadsheets</h3><p>Export them from your CRM and accounting system. Only <code>vendas.csv</code> is required; each additional file enables another area.</p><pre><span class="c"># minimum columns</span>
+venda_id, data, cliente_id,
+produto_id, valor</pre></div>
+    <div class="card"><h3>Ollama (optional)</h3><p>Lets a local model explain each finding in plain English.</p><pre><span class="c"># example</span>
+<span class="k">ollama</span> pull qwen3:30b</pre></div>
+  </div>
+</div></section>
+
+<section id="guia"><div class="wrap">
+  <span class="chip">User guide · step by step</span>
+  <h2>From spreadsheet to validated opportunity</h2>
+  <p class="sub">Start with the demo using a fictional company. Then replace its data folder with your own.</p>
+
+  <div class="step"><div class="b">1</div><div>
+    <h3>Download and run the demo</h3>
+    <p>Creates a fictional company and runs the full cycle: analysis, approval, simulated test, and validation.</p>
+<pre><span class="k">git clone</span> <span class="s">https://github.com/inematds/inema-business-discovery</span>
+<span class="k">cd</span> inema-business-discovery
+<span class="k">python3 -m bd demo</span>   <span class="c"># 8 findings across 5 areas</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">2</div><div>
+    <h3>Review the example in the document</h3>
+    <p>The demo reproduces an illustrative customer recovery scenario. The numbers are fictional and are not observed results.</p>
+<pre><span class="c"># demo output</span>
+120 customers × 20% × R$ 3,500.00 = potential revenue of R$ 84,000.00
+× 30% margin = potential contribution of R$ 25,200.00</pre>
+  </div></div>
+
+  <div class="step"><div class="b">3</div><div>
+    <h3>Prepare your data</h3>
+    <p>Put the CSV files in a folder and add your assumptions to <code>config.json</code> (margin, expected conversion rate, hourly cost). Both <code>;</code> and <code>,</code> separators and values such as <code>1.234,56</code> are accepted.</p>
+<pre><span class="c"># my-company/</span>
+vendas.csv  clientes.csv  produtos.csv  propostas.csv
+despesas.csv  operacao.csv  config.json</pre>
+  </div></div>
+
+  <div class="step"><div class="b">4</div><div>
+    <h3>Run the cycle</h3>
+    <p>The agents work in sequence and save the report, test groups, and memory.</p>
+<pre><span class="k">python3 -m bd analisar</span> --dados minha-empresa --saida saida
+<span class="c"># to include an explanation from the local model: add --llm and "llm": {"provedor": "ollama"} to config</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">5</div><div>
+    <h3>Open the dashboard and decide</h3>
+    <p>Sales outreach, discounts, pricing, contracts, and processes move forward only with a person’s name on the decision. An agent can’t approve it.</p>
+<pre><span class="k">python3 -m bd servir</span> --saida saida   <span class="c"># http://127.0.0.1:8765</span>
+<span class="k">python3 -m bd aprovar</span> RP-REATIVACAO --por <span class="s">"Seu Nome"</span> --saida saida</pre>
+  </div></div>
+
+  <div class="step"><div class="b">6</div><div>
+    <h3>Run a real test</h3>
+    <p>Use the randomly assigned groups in <code>saida/planos/RP-REATIVACAO-grupos.csv</code>: only the “test” group gets the action. After 30 days, record the results.</p>
+<pre><span class="c"># resultado.csv</span>
+alvo_id,grupo,converteu,receita
+C0007,teste,1,3500.00
+C0012,controle,0,0</pre>
+  </div></div>
+
+  <div class="step"><div class="b">7</div><div>
+    <h3>Validate and reinforce</h3>
+    <p>The Validator compares the test and control groups, calculates the p-value and forecast accuracy. Only strategies with a real effect become promoted lessons.</p>
+<pre><span class="k">python3 -m bd validar</span> RP-REATIVACAO --resultados resultado.csv --saida saida
+<span class="k">python3 -m bd memoria</span> --saida saida   <span class="c"># metrics, lessons, and history</span></pre>
+  </div></div>
+</div></section>
+
+<section id="exemplos"><div class="wrap">
+  <span class="chip">Examples</span>
+  <h2>The fictional company’s report</h2>
+  <p class="sub">Real screens generated by the demo. The data and test are simulated.</p>
+  <div class="ex">
+    <figure><img src="../assets/ex1.jpg" alt="Report showing estimated impact by area and key indicators" loading="lazy"><figcaption>Estimated impact by area, validated opportunities, and hypothesis accuracy (71% in the simulated test).</figcaption></figure>
+    <figure><img src="../assets/ex2.jpg" alt="Discovery cards showing status, confidence, and approval gate" loading="lazy"><figcaption>Each finding shows its status, confidence, cost, priority, and human approval gate.</figcaption></figure>
+  </div>
+</div></section>
+
+<section id="roadmap"><div class="wrap">
+  <span class="chip">Roadmap</span>
+  <h2>From a spreadsheet pilot to continuous learning</h2>
+  <p class="sub">Start small: three modules (radar, hypothesis lab, and validator) working with CSV files. Add connectors only after proving their value.</p>
+  <div class="phase"><div class="tag">Ready</div><div class="d"><strong>CSV MVP</strong><span>Six agents, five areas, blind competition, human approval gate, control group validation, SQLite memory, local dashboard.</span></div></div>
+  <div class="phase"><div class="tag">Phase 1</div><div class="d"><strong>Lost revenue in real businesses</strong><span>Customer reactivation pilots, with results measured from start to finish.</span></div></div>
+  <div class="phase"><div class="tag">Phase 2</div><div class="d"><strong>Costs, margins, and operations</strong><span>Supabase (the <code>schema.sql</code> is already in the repo), scheduling with n8n, and a Next.js dashboard.</span></div></div>
+  <div class="phase"><div class="tag">Phase 3</div><div class="d"><strong>Learn across businesses</strong><span>Only with aggregated, anonymized patterns, a legal basis, a contract, and data protection in line with Brazil’s LGPD.</span></div></div>
+  <p style="margin-top:22px">Want to understand the concept first? <a href="https://inematds.github.io/business-discovery-v72/">Explanatory course: What is Business Discovery? → (in Portuguese)</a></p>
+</div></section>
+
+<footer>
+  <div class="wrap">
+    <div class="pill">Python 3</div><div class="pill">SQLite</div><div class="pill">LOOP-R</div><div class="pill">MIT</div>
+    <p style="margin-top:18px">INEMA Business Discovery · open source ·
+      <a href="https://github.com/inematds/inema-business-discovery">inematds/inema-business-discovery</a> ·
+      <a href="https://inema.club">INEMA.CLUB</a></p>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var KEY='inema-business-discovery-theme';
+    var b=document.body, t=document.getElementById('themeToggle');
+    try{ if(localStorage.getItem(KEY)==='light'){ b.classList.add('light'); t.textContent='☀️'; } }catch(e){}
+    t.addEventListener('click',function(){
+      var light=b.classList.toggle('light');
+      t.textContent=light?'☀️':'🌙';
+      try{ localStorage.setItem(KEY, light?'light':'dark'); }catch(e){}
+    });
+  })();
+</script>
+</body>
+</html>

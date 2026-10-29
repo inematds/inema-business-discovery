@@ -1,12 +1,22 @@
 # INEMA Business Discovery
 
+[![INEMA Business Discovery](guia/assets/banner.jpg)](https://inematds.github.io/inema-business-discovery/guia/)
+
+**🇧🇷 [Português](README.md) · 🇺🇸 [English](README.en.md) · 🇪🇸 [Español](README.es.md)**
+
+## O que é
+
+O INEMA Business Discovery é um programa aberto que lê as planilhas da sua empresa (vendas, clientes, propostas, despesas e operação) e aponta oportunidades: clientes que pararam de comprar, despesas que subiram demais, retrabalho, vendas que poderiam acontecer. Serve para o dono ou gestor de uma pequena ou média empresa que quer decidir com prova, não com palpite. Cada achado vem com a conta, o grau de confiança e um teste para confirmar. Para usar, basta Python 3 e as planilhas exportadas em CSV.
+
+## 📖 Guia de uso
+
+Guia completo (landing + passo a passo): **https://inematds.github.io/inema-business-discovery/guia/**
+
 **Laboratório de descobertas para gestão de negócios.** Seis agentes investigam os dados da empresa, encontram oportunidades que o gestor ainda não viu, propõem hipóteses, planejam testes com grupo de controle, conferem as contas, tentam derrubar as próprias conclusões e guardam o que foi aprendido.
 
 > E se uma empresa tivesse uma equipe de pesquisadores de IA trabalhando 24 horas por dia, não para responder perguntas do gestor, mas para descobrir continuamente como ela pode ganhar mais, gastar menos e operar melhor?
 
-- Guia (PT · EN · ES): https://inematds.github.io/inema-business-discovery/guia/
 - Curso explicativo: https://inematds.github.io/business-discovery-v72/
-- Leia também: [README em inglês](README.en.md) · [README em espanhol](README.es.md)
 
 ## Em 1 minuto
 
