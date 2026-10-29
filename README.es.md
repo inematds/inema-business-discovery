@@ -16,8 +16,6 @@ Guía completa (landing + paso a paso): **https://inematds.github.io/inema-busin
 
 > ¿Y si una empresa tuviera un equipo de investigadores de IA trabajando las 24 horas, no para responder las preguntas del gerente, sino para descubrir continuamente cómo puede ganar más, gastar menos y operar mejor?
 
-- Curso explicativo (en portugués): https://inematds.github.io/business-discovery-v72/
-
 ## En 1 minuto
 
 ```bash
@@ -68,6 +66,8 @@ Contacto comercial, descuento, precio, contrato y cambio de proceso **solo avanz
 ## Usar con tus datos
 
 Exporta planillas del CRM, del sistema financiero y de la operación a una carpeta (se aceptan `;` o `,`, fechas `aaaa-mm-dd` o `dd/mm/aaaa`, valores `1.234,56`):
+
+> **Importante:** los nombres de archivos, de columnas y las claves del `config.json` deben quedar en portugués tal como aparecen (`vendas.csv`, `cliente_id`, `valor`, `margem_contribuicao`…), porque es lo que la herramienta lee.
 
 | Archivo | Columnas |
 |---|---|

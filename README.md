@@ -16,7 +16,6 @@ Guia completo (landing + passo a passo): **https://inematds.github.io/inema-busi
 
 > E se uma empresa tivesse uma equipe de pesquisadores de IA trabalhando 24 horas por dia, não para responder perguntas do gestor, mas para descobrir continuamente como ela pode ganhar mais, gastar menos e operar melhor?
 
-- Curso explicativo: https://inematds.github.io/business-discovery-v72/
 
 ## Em 1 minuto
 

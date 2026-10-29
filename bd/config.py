@@ -30,6 +30,21 @@ PADRAO = {
 }
 
 
+def sem_comentarios(texto: str) -> str:
+    """Tira comentários `# ...` (fora de aspas), para o gestor anotar o próprio config.json."""
+    linhas = []
+    for linha in texto.splitlines():
+        dentro, saida = False, []
+        for i, ch in enumerate(linha):
+            if ch == '"' and (i == 0 or linha[i - 1] != "\\"):
+                dentro = not dentro
+            if ch == "#" and not dentro:
+                break
+            saida.append(ch)
+        linhas.append("".join(saida))
+    return "\n".join(linhas)
+
+
 def carregar(pasta_dados: str | Path | None = None, arquivo: str | Path | None = None) -> dict:
     cfg = json.loads(json.dumps(PADRAO))
     candidatos = []
@@ -39,7 +54,11 @@ def carregar(pasta_dados: str | Path | None = None, arquivo: str | Path | None =
         candidatos.append(Path(pasta_dados) / "config.json")
     for c in candidatos:
         if c.exists():
-            extra = json.loads(c.read_text(encoding="utf-8"))
+            try:
+                extra = json.loads(sem_comentarios(c.read_text(encoding="utf-8")))
+            except json.JSONDecodeError as e:
+                raise SystemExit(f"{c}: config.json inválido na linha {e.lineno} ({e.msg}). "
+                                 "Confira aspas, vírgulas entre os itens e nenhuma vírgula depois do último.")
             cfg["_informado"] = sorted(extra)
             for k, v in extra.items():
                 if isinstance(v, dict) and isinstance(cfg.get(k), dict):

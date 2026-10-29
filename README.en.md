@@ -16,8 +16,6 @@ Full guide (landing page + step-by-step instructions): **https://inematds.github
 
 > What if a company had a team of AI researchers working around the clock, not to answer the manager’s questions, but to keep discovering how it could earn more, spend less, and operate better?
 
-- Explainer course: https://inematds.github.io/business-discovery-v72/ (in Portuguese)
-
 ## In 1 minute
 
 ```bash
@@ -68,6 +66,8 @@ Customer outreach, discounts, pricing, contracts, and process changes **only mov
 ## Use it with your data
 
 Export spreadsheets from your CRM, finance system, and operations system to a folder (`;` or `,` delimiters, dates in `yyyy-mm-dd` or `dd/mm/yyyy` format, values such as `1.234,56` are accepted):
+
+> **Important:** file names, column names, and `config.json` keys must stay in Portuguese exactly as shown (`vendas.csv`, `cliente_id`, `valor`, `margem_contribuicao`…), because that is what the tool reads.
 
 | File | Columns |
 |---|---|

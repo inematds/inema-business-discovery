@@ -213,3 +213,18 @@ def test_llm_padrao_nao_chama_nada():
 def test_nenhuma_chave_de_api_no_codigo():
     fonte = "".join(p.read_text() for p in (RAIZ / "bd").glob("*.py"))
     assert not re.search(r"API_KEY|api\.anthropic|api\.openai|openrouter", fonte, re.I)
+
+
+def test_config_aceita_comentarios(tmp_path):
+    (tmp_path / "config.json").write_text(
+        '{\n  "margem_contribuicao": 0.25,   # minha margem\n  "custo_hora": 50,  # R$ por hora\n'
+        '  "llm": {"provedor": "nenhum"}  # sem modelo\n}\n', encoding="utf-8")
+    c = cfg_de(tmp_path)
+    assert c["margem_contribuicao"] == 0.25 and c["custo_hora"] == 50
+    assert "margem_contribuicao" in c["_informado"]
+
+
+def test_config_invalido_mensagem_clara(tmp_path):
+    (tmp_path / "config.json").write_text('{"margem_contribuicao": 0.3,}', encoding="utf-8")
+    with pytest.raises(SystemExit, match="config.json inválido"):
+        cfg_de(tmp_path)

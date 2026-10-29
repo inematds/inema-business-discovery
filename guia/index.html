@@ -129,7 +129,7 @@
     <div>
       <span class="chip">Laboratório de descobertas para gestão</span>
       <h1>Sua empresa com uma equipe de pesquisa <span class="amb">que não para</span></h1>
-      <p class="lead">Seis agentes procuram onde a empresa perde dinheiro, testam a solução com grupo de controle e só guardam o que o número confirmou.</p>
+      <p class="lead">Seis agentes procuram onde a empresa perde dinheiro, testam a solução com grupo de controle e só guardam o que o número confirmou. Você roda quando quiser, por exemplo toda segunda.</p>
       <div class="cta">
         <a class="btn" href="#guia">Começar o guia</a>
         <a class="btn ghost" href="https://github.com/inematds/inema-business-discovery" target="_blank" rel="noopener">Ver no GitHub</a>
@@ -147,7 +147,7 @@
 <section id="oque"><div class="wrap">
   <span class="chip">O que é</span>
   <h2>Não responde perguntas. Descobre o que você ainda não perguntou.</h2>
-  <p class="sub">Um painel mostra números. Esta plataforma investiga, propõe uma explicação, planeja um teste e mede se funcionou, toda semana.</p>
+  <p class="sub">Um painel mostra números. Esta plataforma investiga, propõe uma explicação, planeja um teste e mede se funcionou, a cada rodada.</p>
   <figure style="margin:0 0 26px;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000"><img src="assets/banner-grade.jpg" alt="As cinco frentes de descoberta e a memória da plataforma" loading="lazy" style="width:100%;display:block"></figure>
   <div class="grid g3">
     <div class="card"><h3>🔎 Cinco frentes</h3><p>Receita perdida, despesas evitáveis, risco de abandono, ineficiências operacionais e oportunidades comerciais.</p></div>
@@ -185,13 +185,14 @@
   <h2>Python e suas planilhas. Nada mais.</h2>
   <p class="sub">Sem dependências, sem banco externo, sem chave de API. O modelo de linguagem é opcional e roda na sua máquina.</p>
   <div class="grid g3">
-    <div class="card"><h3>Python 3.10+</h3><p>Já vem no Linux e no macOS. No Windows, instale pelo python.org.</p><pre><span class="c"># conferir</span>
+    <div class="card"><h3>Python 3.10+</h3><p>Já vem no Linux e no macOS. No Windows, instale pelo python.org; lá o comando costuma ser <code>python</code> em vez de <code>python3</code>.</p><pre><span class="c"># conferir</span>
 <span class="k">python3</span> --version</pre></div>
     <div class="card"><h3>Planilhas em CSV</h3><p>Exporte do CRM e do financeiro. Só <code>vendas.csv</code> é obrigatório; cada arquivo a mais liga uma frente.</p><pre><span class="c"># colunas mínimas</span>
 venda_id, data, cliente_id,
-produto_id, valor</pre></div>
-    <div class="card"><h3>Ollama (opcional)</h3><p>Para um modelo local escrever a explicação de cada achado em português simples.</p><pre><span class="c"># exemplo</span>
-<span class="k">ollama</span> pull qwen3:30b</pre></div>
+produto_id, valor
+<span class="c"># quantidade é opcional</span></pre></div>
+    <div class="card"><h3>Ollama (opcional)</h3><p>Só se quiser que um modelo local escreva a explicação de cada achado. Modelos grandes ocupam dezenas de GB; numa máquina comum, use um menor.</p><pre><span class="c"># exemplo leve</span>
+<span class="k">ollama</span> pull llama3.1:8b</pre></div>
   </div>
 </div></section>
 
@@ -202,7 +203,7 @@ produto_id, valor</pre></div>
 
   <div class="step"><div class="b">1</div><div>
     <h3>Baixe e rode a demonstração</h3>
-    <p>Gera uma empresa inventada e roda o ciclo inteiro: análise, aprovação, teste simulado e validação.</p>
+    <p>Gera uma empresa inventada e roda o ciclo inteiro: análise, aprovação, teste simulado e validação. Sem o git, baixe o <a href="https://github.com/inematds/inema-business-discovery/archive/refs/heads/main.zip">ZIP do projeto</a>, descompacte e abra o terminal na pasta. No Windows, abra a pasta no Explorador, clique com o botão direito e escolha "Abrir no Terminal".</p>
 <pre><span class="k">git clone</span> <span class="s">https://github.com/inematds/inema-business-discovery</span>
 <span class="k">cd</span> inema-business-discovery
 <span class="k">python3 -m bd demo</span>   <span class="c"># 8 descobertas nas 5 frentes</span></pre>
@@ -218,10 +219,14 @@ produto_id, valor</pre></div>
 
   <div class="step"><div class="b">3</div><div>
     <h3>Prepare os seus dados</h3>
-    <p>Coloque os CSVs numa pasta e escreva as suas premissas no <code>config.json</code> (margem, conversão esperada, custo da hora). Separador <code>;</code> ou <code>,</code> e valores como <code>1.234,56</code> são aceitos.</p>
-<pre><span class="c"># minha-empresa/</span>
-vendas.csv  clientes.csv  produtos.csv  propostas.csv
-despesas.csv  operacao.csv  config.json</pre>
+    <p>Coloque os CSVs numa pasta. Só <code>vendas.csv</code> é obrigatório; as colunas de cada arquivo estão na <a href="https://github.com/inematds/inema-business-discovery#usar-com-os-seus-dados">tabela do README</a>. Separador <code>;</code> ou <code>,</code> e valores como <code>1.234,56</code> são aceitos. Escreva as suas premissas no <code>config.json</code>; o que você não puser usa o valor padrão.</p>
+<pre><span class="c"># minha-empresa/config.json  (exemplo)</span>
+{
+  <span class="s">"margem_contribuicao"</span>: 0.30,    <span class="c"># margem de contribuição: quanto sobra de cada R$ 1 vendido depois do custo direto</span>
+  <span class="s">"conversao_reativacao"</span>: 0.20,   <span class="c"># quantos inativos você espera que voltem</span>
+  <span class="s">"custo_hora"</span>: 45,               <span class="c"># custo de uma hora de trabalho, em R$</span>
+  <span class="s">"custo_contato_cliente"</span>: 25     <span class="c"># custo de abordar um cliente, em R$</span>
+}</pre>
   </div></div>
 
   <div class="step"><div class="b">4</div><div>
@@ -233,23 +238,23 @@ despesas.csv  operacao.csv  config.json</pre>
 
   <div class="step"><div class="b">5</div><div>
     <h3>Abra o painel e decida</h3>
-    <p>Contato comercial, desconto, preço, contrato e processo só andam com o nome de uma pessoa. Agente não aprova.</p>
-<pre><span class="k">python3 -m bd servir</span> --saida saida   <span class="c"># http://127.0.0.1:8765</span>
+    <p>Contato comercial, desconto, preço, contrato e processo só andam com o nome de uma pessoa. Agente não aprova. O painel ocupa o terminal enquanto estiver aberto: aprove pelo botão dele ou rode o <code>aprovar</code> em outro terminal.</p>
+<pre><span class="k">python3 -m bd servir</span> --saida saida   <span class="c"># http://127.0.0.1:8765  (porta ocupada? use --porta 8766)</span>
 <span class="k">python3 -m bd aprovar</span> RP-REATIVACAO --por <span class="s">"Seu Nome"</span> --saida saida</pre>
   </div></div>
 
   <div class="step"><div class="b">6</div><div>
     <h3>Faça o teste de verdade</h3>
-    <p>Use os grupos sorteados em <code>saida/planos/RP-REATIVACAO-grupos.csv</code>: só o grupo "teste" recebe a ação. Depois de 30 dias, registre o resultado.</p>
-<pre><span class="c"># resultado.csv</span>
+    <p>Use os grupos sorteados em <code>saida/planos/RP-REATIVACAO-grupos.csv</code>: só quem está no grupo <code>teste</code> recebe a ação. Depois de 30 dias, registre o resultado de todos, dos dois grupos.</p>
+<pre><span class="c"># resultado.csv (uma linha por cliente do arquivo de grupos)</span>
 alvo_id,grupo,converteu,receita
-C0007,teste,1,3500.00
-C0012,controle,0,0</pre>
+C0002,teste,1,3500.00
+C0001,controle,0,0</pre>
   </div></div>
 
   <div class="step"><div class="b">7</div><div>
     <h3>Valide e reforce</h3>
-    <p>O Validador compara teste e controle, calcula o p-valor e a precisão da previsão. Só estratégia com efeito real vira lição promovida.</p>
+    <p>O Validador compara os dois grupos. O <b>p-valor</b> diz a chance de a diferença ter sido sorte: abaixo de 0,05 (5%), conta como efeito real. Se além disso o lucro a mais pagou o custo, a estratégia vira <b>lição promovida</b> e ganha peso nas próximas rodadas; senão, fica registrada como descartada. A <b>precisão</b> compara o ganho previsto com o medido. Com poucos clientes no teste o resultado quase sempre sai descartado: isso é o sistema sendo honesto.</p>
 <pre><span class="k">python3 -m bd validar</span> RP-REATIVACAO --resultados resultado.csv --saida saida
 <span class="k">python3 -m bd memoria</span> --saida saida   <span class="c"># métricas, lições e trilha</span></pre>
   </div></div>
@@ -271,9 +276,8 @@ C0012,controle,0,0</pre>
   <p class="sub">Começa pequeno: três módulos (radar, laboratório de hipóteses e validador) sobre CSV. Conectores só depois de provar valor.</p>
   <div class="phase"><div class="tag">Pronto</div><div class="d"><strong>MVP com CSV</strong><span>Seis agentes, cinco frentes, competição às cegas, portão humano, validação com controle, memória em SQLite, painel local.</span></div></div>
   <div class="phase"><div class="tag">Fase 1</div><div class="d"><strong>Receita perdida em empresas reais</strong><span>Pilotos de reativação de clientes, com o teste medido de ponta a ponta.</span></div></div>
-  <div class="phase"><div class="tag">Fase 2</div><div class="d"><strong>Custos, margens e operação</strong><span>Supabase (o <code>schema.sql</code> já está no repo), agendamento por n8n e painel em Next.js.</span></div></div>
+  <div class="phase"><div class="tag">Fase 2</div><div class="d"><strong>Custos, margens e operação</strong><span>Histórico num banco na nuvem (Supabase; o <code>schema.sql</code> já está no repo), rodada automática toda semana com um agendador (n8n; há um fluxo de exemplo) e painel web para vários usuários (Next.js).</span></div></div>
   <div class="phase"><div class="tag">Fase 3</div><div class="d"><strong>Aprender entre empresas</strong><span>Só com padrões agregados e anonimizados, base legal, contrato e proteção de dados conforme a LGPD.</span></div></div>
-  <p style="margin-top:22px">Quer entender o conceito antes? <a href="https://inematds.github.io/business-discovery-v72/">Curso explicativo: o que é Business Discovery →</a></p>
 </div></section>
 
 <footer>
